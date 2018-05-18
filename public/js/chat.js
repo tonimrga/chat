@@ -81,7 +81,6 @@ jQuery('#message-form').on('submit', function(e){
   e.preventDefault();
 
   socket.emit('createMessage', {
-    from: 'User: ',
     text: jQuery('[name=message]').val()
   }, function () {
     jQuery('[name=message]').val('')
@@ -95,17 +94,17 @@ locationButton.on('click', function(){
         return alert('Geolocation not supported by your browser.')
     }
 
-    locationButton.attr('disabled', 'disabled').text('Sending location...');
+    locationButton.attr('disabled', 'disabled').text('Lokacija se šalje...');
 
     navigator.geolocation.getCurrentPosition(function(position) {
-      locationButton.removeAttr('disabled').text("Send location");
+      locationButton.removeAttr('disabled').text("Pošaljite lokaciju");
 
       socket.emit('createLocation', {
          latitude: position.coords.latitude,
          longitude: position.coords.longitude
       });
     }, function () {
-      locationButton.removeAttr('disabled').text("Send location");
+      locationButton.removeAttr('disabled').text("Pošaljite lokaciju");
       alert('Unable to fetch location.');
     });
 });
